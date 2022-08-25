@@ -144,13 +144,11 @@
         if (products.length > 0) {
           for (let i = 0; i < products.length; i++) {
             let count = i;
-            let id = products[count]["_id"].toString()
+            let id = products[count]["_id"].toString();
             MAIN_List.innerHTML += `
           <li class="list-group-item d-flex">
              <span class="mr-auto">${products[i].name}</span>
-            <span class="badge bg-success ml-auto my-auto align-text-middle mx-1">£${
-              products[i].price
-            }</span>
+            <span class="badge bg-success ml-auto my-auto align-text-middle mx-1">£${products[i].price}</span>
             <button type="button" class="btn btn-primary mx-1" onclick="window.location.href = './editentry.html?search=' + ${id};">Edit</button>
             <button type="button" class="btn btn-danger mx-1" onclick="deleteProd(${count});">Delete</button>
         </li>
