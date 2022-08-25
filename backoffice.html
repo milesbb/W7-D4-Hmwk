@@ -145,11 +145,12 @@
           for (let i = 0; i < products.length; i++) {
             let count = i;
             let id = products[count]["_id"].toString();
+            console.log(id);
             MAIN_List.innerHTML += `
           <li class="list-group-item d-flex">
              <span class="mr-auto">${products[i].name}</span>
             <span class="badge bg-success ml-auto my-auto align-text-middle mx-1">£${products[i].price}</span>
-            <button type="button" class="btn btn-primary mx-1" onclick="window.location.href = './editentry.html?search=' + ${id};">Edit</button>
+            <button type="button" class="btn btn-primary mx-1" onclick="window.location.href = 'editentry.html?q=' + ${id};">Edit</button>
             <button type="button" class="btn btn-danger mx-1" onclick="deleteProd(${count});">Delete</button>
         </li>
         `;
@@ -195,28 +196,6 @@
       };
 
       console.log("Loaded");
-
-      //   let myObject = {
-      // name: "app test 1", //REQUIRED
-      //   description: "somthing longer", //REQUIRED
-      //   brand: "nokia", //REQUIRED
-      //   imageUrl:
-      //     "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80", //REQUIRED
-      //   price: 10, //REQUIRED
-      // };
-
-      // let newResp = await fetch(
-      //   "https://striveschool-api.herokuapp.com/api/product/",
-      //   {
-      //     method: "POST",
-      //     body: JSON.stringify(myObject),
-      //     headers: new Headers({
-      //       Authorization:
-      //         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3NmUyOTFlYjc2ZDAwMTUxNTAxODQiLCJpYXQiOjE2NjE0MzEzMzcsImV4cCI6MTY2MjY0MDkzN30.yVRsTSWKhu2WIrAbnKX_R0Fml1OgasMgaw02ueY0Q4E",
-      //       "Content-Type": "application/json",
-      //     }),
-      //   }
-      // );
     </script>
 
     <script
