@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crudazon Store</title>
+    <title>Crudazon | Back Office</title>
     <link
       rel="canonical"
       href="https://getbootstrap.com/docs/4.3/examples/album/"
@@ -140,20 +140,56 @@
       const setList = (products) => {
         const MAIN_List = document.querySelectorAll(".list-group")[0];
         MAIN_List.innerHTML = "";
-        for (let i = 0; i < products.length; i++) {
-          MAIN_List.innerHTML += `
+
+        if (products.length > 0) {
+          for (let i = 0; i < products.length; i++) {
+            let count = i;
+            let id = products[count]["_id"].toString()
+            MAIN_List.innerHTML += `
           <li class="list-group-item d-flex">
              <span class="mr-auto">${products[i].name}</span>
             <span class="badge bg-success ml-auto my-auto align-text-middle mx-1">£${
               products[i].price
             }</span>
-            <button type="button" class="btn btn-primary mx-1" onclick="window.location.href = './editentry.html?q=' + ${products[
-              i
-            ]._id};">Edit</button>
-            <button type="button" class="btn btn-danger mx-1">Delete</button>
+            <button type="button" class="btn btn-primary mx-1" onclick="window.location.href = './editentry.html?search=' + ${id};">Edit</button>
+            <button type="button" class="btn btn-danger mx-1" onclick="deleteProd(${count});">Delete</button>
         </li>
         `;
+          }
+        } else {
+          MAIN_List.innerHTML += `<h2 class="text-center">No Products Found</h2>`;
         }
+      };
+
+      const deleteProd = async (num) => {
+        const response = await fetch(
+          "https://striveschool-api.herokuapp.com/api/product/",
+          {
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3NmUyOTFlYjc2ZDAwMTUxNTAxODQiLCJpYXQiOjE2NjE0MzEzMzcsImV4cCI6MTY2MjY0MDkzN30.yVRsTSWKhu2WIrAbnKX_R0Fml1OgasMgaw02ueY0Q4E",
+            },
+          }
+        );
+        const data = await response.json();
+        const products = data;
+
+        let newResponse = await fetch(
+          "https://striveschool-api.herokuapp.com/api/product/" +
+            products[num]["_id"].toString(),
+          {
+            method: "DELETE",
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3NmUyOTFlYjc2ZDAwMTUxNTAxODQiLCJpYXQiOjE2NjE0MzEzMzcsImV4cCI6MTY2MjY0MDkzN30.yVRsTSWKhu2WIrAbnKX_R0Fml1OgasMgaw02ueY0Q4E",
+            },
+          }
+        );
+
+        const MAIN_List = document.querySelectorAll(".list-group")[0];
+        MAIN_List.innerHTML = "";
+        setList(products);
+        location.reload();
       };
 
       window.onload = () => {

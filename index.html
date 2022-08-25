@@ -122,15 +122,18 @@
 
     <!-- Cards -->
 
-    <div class="container">
-      <div class="row" id="mainRow"></div>
+    <div class="container mb-5">
+      <div class="row" id="mainRow">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
     </div>
 
     <!-- bootstrap and js scripts -->
 
     <script>
       const loadProds = async () => {
-
         // const options = {
         //   method: "GET",
         //   headers: {
@@ -147,73 +150,71 @@
             },
           }
         );
-        
-            console.log(response);
+
         const data = await response.json();
-        console.log(data);
         const products = data;
         console.log(products);
         setCards(products);
-
-        
-
-        console.log(products);
       };
 
       const setCards = (products) => {
-        const MAIN_ROW = document.querySelectorAll("#mainRow");
+        const MAIN_ROW = document.querySelectorAll("#mainRow")[0];
         MAIN_ROW.innerHTML = "";
-        for (let i = 0; i < products.length; i++) {
-          MAIN_ROW[0].innerHTML += `
-        <div class="col-md-4">
+        if (products.length > 0) {
+          for (let i = 0; i < products.length; i++) {
+            MAIN_ROW.innerHTML += `
+          <div class="col-md-4">
 
-        <div class="card mt-3" style="width: 18rem">
-        <span class="badge badge-success position-absolute display-6 d-none">
-        <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="currentColor"
-              class="bi bi-basket"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"
-              />
-            </svg>
-        </span>
-          <img class="card-img-top" src="${products[i].imgUrl}" alt="Card image cap" />
-          <div class="card-body">
-            <h5 class="card-title">${products[i].name}</h5>
-            <p class="card-text">
-                <p class="description">${products[i].description}</p>
-              <p class="category">Brand: ${products[i].brand}</p>
-              <p class="price">Price: £${products[i].price}</p>
-            </p>
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-basket mr-2 mb-1"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"
-                  />
-                </svg>
-                Add to Cart
-              </button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">
-                Skip
-              </button>
+          <div class="card mt-3" style="width: 18rem">
+          <span class="badge badge-success position-absolute display-6 d-none">
+          <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="currentColor"
+                class="bi bi-basket"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"
+                />
+              </svg>
+          </span>
+            <img class="card-img-top" src="${products[i].imageUrl}" alt="Card image cap" />
+            <div class="card-body">
+              <h5 class="card-title">${products[i].name}</h5>
+              <p class="card-text">
+                  <p class="description">${products[i].description}</p>
+                <p class="category">Brand: ${products[i].brand}</p>
+                <p class="price">Price: £${products[i].price}</p>
+              </p>
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-basket mr-2 mb-1"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"
+                    />
+                  </svg>
+                  Add to Cart
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Skip
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-        `;
+          `;
+          }
+        } else {
+          MAIN_ROW.innerHTML += `<h2 class="text-center">No Products Found</h2>`;
         }
       };
 
@@ -221,30 +222,27 @@
         loadProds();
       };
 
-      console.log("Loaded");
+      //   let myObject = {
+      // name: "app test 1", //REQUIRED
+      //   description: "somthing longer", //REQUIRED
+      //   brand: "nokia", //REQUIRED
+      //   imageUrl:
+      //     "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80", //REQUIRED
+      //   price: 10, //REQUIRED
+      // };
 
-
-    //   let myObject = {
-        // name: "app test 1", //REQUIRED
-        //   description: "somthing longer", //REQUIRED
-        //   brand: "nokia", //REQUIRED
-        //   imageUrl:
-        //     "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80", //REQUIRED
-        //   price: 10, //REQUIRED
-        // };
-
-        // let newResp = await fetch(
-        //   "https://striveschool-api.herokuapp.com/api/product/",
-        //   {
-        //     method: "POST",
-        //     body: JSON.stringify(myObject),
-        //     headers: new Headers({
-        //       Authorization:
-        //         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3NmUyOTFlYjc2ZDAwMTUxNTAxODQiLCJpYXQiOjE2NjE0MzEzMzcsImV4cCI6MTY2MjY0MDkzN30.yVRsTSWKhu2WIrAbnKX_R0Fml1OgasMgaw02ueY0Q4E",
-        //       "Content-Type": "application/json",
-        //     }),
-        //   }
-        // );
+      // let newResp = await fetch(
+      //   "https://striveschool-api.herokuapp.com/api/product/",
+      //   {
+      //     method: "POST",
+      //     body: JSON.stringify(myObject),
+      //     headers: new Headers({
+      //       Authorization:
+      //         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3NmUyOTFlYjc2ZDAwMTUxNTAxODQiLCJpYXQiOjE2NjE0MzEzMzcsImV4cCI6MTY2MjY0MDkzN30.yVRsTSWKhu2WIrAbnKX_R0Fml1OgasMgaw02ueY0Q4E",
+      //       "Content-Type": "application/json",
+      //     }),
+      //   }
+      // );
     </script>
 
     <script
