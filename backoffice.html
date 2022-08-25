@@ -103,14 +103,14 @@
 
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-success"
         onclick="window.location.href = './newentry.html'"
       >
         Add New Product
       </button>
       <button
         type="button"
-        class="btn btn-danger"
+        class="btn btn-primary"
         onclick="window.location.href = './index.html'"
       >
         Back to Home
@@ -144,16 +144,22 @@
         if (products.length > 0) {
           for (let i = 0; i < products.length; i++) {
             let count = i;
-            let id = products[count]["_id"].toString();
-            console.log(id);
+
             MAIN_List.innerHTML += `
           <li class="list-group-item d-flex">
              <span class="mr-auto">${products[i].name}</span>
             <span class="badge bg-success ml-auto my-auto align-text-middle mx-1">£${products[i].price}</span>
-            <button type="button" class="btn btn-primary mx-1" onclick="window.location.href = 'editentry.html?q=' + ${id};">Edit</button>
+            <button type="button" class="btn btn-primary mx-1 editButton">Edit</button>
             <button type="button" class="btn btn-danger mx-1" onclick="deleteProd(${count});">Delete</button>
         </li>
         `;
+          }
+          const EDIT_BUTTONS = document.getElementsByClassName("editButton");
+          for (let x = 0; x < EDIT_BUTTONS.length; x++) {
+            EDIT_BUTTONS[x].addEventListener("click", () => {
+              window.location.href =
+                "editentry.html?q=" + products[x]["_id"].toString();
+            });
           }
         } else {
           MAIN_List.innerHTML += `<h2 class="text-center">No Products Found</h2>`;
